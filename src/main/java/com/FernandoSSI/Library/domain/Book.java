@@ -1,5 +1,6 @@
 package com.FernandoSSI.Library.domain;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -11,17 +12,18 @@ public class Book implements Serializable {
     private String title;
     private String author;
     private Double price;
-    private Integer quantity;
+    private String condition;
+
 
     public Book(){
 
     }
 
-    public Book(String title, String author, Double price, Integer quantity) {
+    public Book(String title, String author, Double price, String condition) {
         this.title = title;
         this.author = author;
         this.price = price;
-        this.quantity = quantity;
+        this.condition = condition;
     }
 
     public String getTitle() {
@@ -48,12 +50,12 @@ public class Book implements Serializable {
         this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     @Override
