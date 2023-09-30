@@ -6,6 +6,7 @@ import com.FernandoSSI.Library.repositories.BookRepository;
 import com.FernandoSSI.Library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -37,6 +38,20 @@ public class BookController {
         List<Book> list = service.findByAuthor(text);
 
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<Book>> find(@RequestParam(value = "text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Book> list = service.find(text);
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable String id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 

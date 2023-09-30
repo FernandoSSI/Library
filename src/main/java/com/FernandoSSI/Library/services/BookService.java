@@ -24,4 +24,19 @@ public class BookService {
     public List<Book> findByAuthor(String text){
         return repo.findByAuthor(text);
     }
+
+    public List<Book> find(String text){
+        return repo.find(text);
+    }
+
+    public Book insert(Book book){
+        return repo.insert(book);
+    }
+
+    public void delete(String id){
+        if(!(repo.findById(id) == null)){
+            repo.deleteById(id);
+        }
+    }
+
 }

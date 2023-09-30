@@ -19,9 +19,10 @@ public class instantiation implements CommandLineRunner {
 
         bookRepository.deleteAll();
 
-        Book b1 = new Book("fundation", "isaac asimov", 50.0, "novo");
-        Book b2 = new Book("cavernas de aço", "isaac asimov", 40.0, "novo");
+        Book b1 = new Book(null, "fundation", "isaac asimov", 50.0, "novo");
+        Book b2 = new Book(null, "cavernas de aço", "isaac asimov", 40.0, "novo");
+        Book b3 = new Book(null, "iluminado", "stephen king", 40.0, "usado");
 
-        bookRepository.saveAll(Arrays.asList(b1, b2));
+        bookRepository.saveAll(Arrays.asList(b1, b2, b3));
     }
 }
