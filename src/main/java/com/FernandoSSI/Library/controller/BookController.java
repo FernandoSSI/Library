@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -48,11 +50,20 @@ public class BookController {
         return ResponseEntity.ok().body(list);
     }
 
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody Book book){
+        book = service.insert(book);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(book.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
 
 
 

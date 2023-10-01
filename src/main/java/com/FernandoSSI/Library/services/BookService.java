@@ -2,10 +2,14 @@ package com.FernandoSSI.Library.services;
 
 import com.FernandoSSI.Library.domain.Book;
 import com.FernandoSSI.Library.repositories.BookRepository;
+import com.FernandoSSI.Library.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 @Service
 public class BookService {
@@ -15,6 +19,11 @@ public class BookService {
 
     public List<Book> findAll(){
         return repo.findAll();
+    }
+
+    public Book findById(String id){
+        Optional<Book> book= repo.findById(id);
+        return book.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
     public List<Book> findByTitle(String text){
@@ -38,5 +47,7 @@ public class BookService {
             repo.deleteById(id);
         }
     }
+
+
 
 }
