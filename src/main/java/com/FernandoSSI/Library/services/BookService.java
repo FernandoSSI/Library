@@ -48,6 +48,18 @@ public class BookService {
         }
     }
 
+    public Book update(Book book){
+        Book newBook = findById(book.getId());
+        newBook.setTitle(book.getTitle());
+        newBook.setAuthor(book.getAuthor());
+        newBook.setPrice(book.getPrice());
+        newBook.setCondition(book.getCondition());
+
+        return repo.save(newBook);
+    }
+
+
+
 
 
 }
