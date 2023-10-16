@@ -1,9 +1,11 @@
 package com.FernandoSSI.Library.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Document
@@ -17,16 +19,19 @@ public class Book implements Serializable {
     private String condition;
 
 
+    private Category category;
+
     public Book(){
 
     }
 
-    public Book(String id, String title, String author, Double price, String condition) {
+    public Book(String id, String title, String author, Double price, String condition, Category category) {
         this.id= id;
         this.title = title;
         this.author = author;
         this.price = price;
         this.condition = condition;
+        this.category = category;
     }
 
     public String getId() {
@@ -67,6 +72,14 @@ public class Book implements Serializable {
 
     public void setCondition(String condition) {
         this.condition = condition;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
