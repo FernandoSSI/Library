@@ -19,6 +19,7 @@ public class Book implements Serializable {
     private String author;
     private Double price;
     private String condition;
+    private String imgUrl;
 
     @JsonIgnoreProperties("books")
     private Category category;
@@ -27,13 +28,14 @@ public class Book implements Serializable {
 
     }
 
-    public Book(String id, String title, String author, Double price, String condition, Category category) {
+    public Book(String id, String title, String author, Double price, String condition, Category category, String imgUrl) {
         this.id= id;
         this.title = title;
         this.author = author;
         this.price = price;
         this.condition = condition;
         this.category = category;
+        this.imgUrl = imgUrl;
     }
 
     public String getId() {
@@ -82,6 +84,14 @@ public class Book implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     @Override
