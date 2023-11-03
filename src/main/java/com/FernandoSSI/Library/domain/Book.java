@@ -1,13 +1,8 @@
 package com.FernandoSSI.Library.domain;
 
-import com.FernandoSSI.Library.dto.CategoryDTO;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 @Document
@@ -20,15 +15,13 @@ public class Book implements Serializable {
     private Double price;
     private String condition;
     private String imgUrl;
-
-    @JsonIgnoreProperties("books")
-    private Category category;
+    private String category;
 
     public Book(){
 
     }
 
-    public Book(String id, String title, String author, Double price, String condition, Category category, String imgUrl) {
+    public Book(String id, String title, String author, Double price, String condition, String category, String imgUrl) {
         this.id= id;
         this.title = title;
         this.author = author;
@@ -78,11 +71,11 @@ public class Book implements Serializable {
         this.condition = condition;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

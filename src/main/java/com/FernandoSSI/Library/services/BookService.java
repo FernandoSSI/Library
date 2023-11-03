@@ -54,6 +54,8 @@ public class BookService {
         newBook.setAuthor(book.getAuthor());
         newBook.setPrice(book.getPrice());
         newBook.setCondition(book.getCondition());
+        newBook.setCategory(book.getCategory());
+        newBook.setImgUrl(book.getImgUrl());
 
         return repo.save(newBook);
     }
