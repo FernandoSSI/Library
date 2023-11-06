@@ -16,12 +16,13 @@ public class Book implements Serializable {
     private String condition;
     private String imgUrl;
     private String category;
+    private Integer quantity = 1;
 
     public Book(){
 
     }
 
-    public Book(String id, String title, String author, Double price, String condition, String category, String imgUrl) {
+    public Book(String id, String title, String author, Double price, String condition, String category, String imgUrl, Integer quantity) {
         this.id= id;
         this.title = title;
         this.author = author;
@@ -29,6 +30,7 @@ public class Book implements Serializable {
         this.condition = condition;
         this.category = category;
         this.imgUrl = imgUrl;
+        this.quantity = quantity;
     }
 
     public String getId() {
@@ -85,6 +87,14 @@ public class Book implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override

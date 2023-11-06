@@ -39,7 +39,14 @@ public class BookService {
     }
 
     public Book insert(Book book){
-        return repo.insert(book);
+        Book existingBook = repo.findExactBook(book.getTitle(), book.getAuthor(), book.getCondition());
+        if(existingBook == null){
+            return repo.insert(book);
+        } else {
+            existingBook.setQuantity(existingBook.getQuantity()+book.getQuantity());
+            return repo.save(existingBook);
+        }
+
     }
 
     public void delete(String id){
@@ -56,6 +63,7 @@ public class BookService {
         newBook.setCondition(book.getCondition());
         newBook.setCategory(book.getCategory());
         newBook.setImgUrl(book.getImgUrl());
+        newBook.setQuantity(book.getQuantity());
 
         return repo.save(newBook);
     }
