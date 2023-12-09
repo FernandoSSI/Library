@@ -50,8 +50,12 @@ public class BookService {
     }
 
     public void delete(String id){
-        if(!(repo.findById(id) == null)){
+        Book book = findById(id);
+        if(book != null && book.getQuantity() == 0){
             repo.deleteById(id);
+        } else if (book != null && book.getQuantity() > 0){
+            book.setQuantity(book.getQuantity()-1);
+            repo.save(book);
         }
     }
 

@@ -14,18 +14,19 @@ public class Client implements Serializable {
     @Id
     private String id;
     private String name;
-    private Integer number;
+    private Long number;
     private String city;
     private String street;
-    private Integer hn;
     private String nbh;
+    private Integer hn;
+
 
 
     public Client(){
 
     }
 
-    public Client(String id, String name, Integer number, String city, String street, Integer hn, String nbh) {
+    public Client(String id, String name, Long number, String city, String street, Integer hn, String nbh) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -51,11 +52,11 @@ public class Client implements Serializable {
         this.name = name;
     }
 
-    public Integer getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 

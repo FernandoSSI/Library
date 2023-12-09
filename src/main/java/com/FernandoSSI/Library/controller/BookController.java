@@ -5,6 +5,11 @@ import com.FernandoSSI.Library.domain.Book;
 import com.FernandoSSI.Library.repositories.BookRepository;
 import com.FernandoSSI.Library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +27,24 @@ public class BookController {
     @Autowired
     private BookService service;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+
     @GetMapping
     public List<Book> findAll(){
         return service.findAll();
     }
+
+    /*
+    @GetMapping
+    public ResponseEntity<List<Book>> findAllLimit(@RequestParam(value = "limit", defaultValue = "") Integer limit,
+                                   @RequestParam(value = "page", defaultValue = "") Integer page){
+        List<Book> books = service.findAll();
+        int skip = limit * page;
+
+
+    }*/
 
     @GetMapping(value = "/titlesearch")
     public ResponseEntity<List<Book>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
