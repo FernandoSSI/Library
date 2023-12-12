@@ -5,6 +5,7 @@ import com.FernandoSSI.Library.domain.Book;
 import com.FernandoSSI.Library.repositories.BookRepository;
 import com.FernandoSSI.Library.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -36,36 +37,42 @@ public class BookController {
         return service.findAll();
     }
 
-    /*
-    @GetMapping
-    public ResponseEntity<List<Book>> findAllLimit(@RequestParam(value = "limit", defaultValue = "") Integer limit,
-                                   @RequestParam(value = "page", defaultValue = "") Integer page){
-        List<Book> books = service.findAll();
-        int skip = limit * page;
-
-
-    }*/
-
     @GetMapping(value = "/titlesearch")
-    public ResponseEntity<List<Book>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
+    public ResponseEntity<Page<Book>> findByTitle(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+
         text = URL.decodeParam(text);
-        List<Book> list = service.findByTitle(text);
+        Page<Book> list = service.findByTitle(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/authorsearch")
-    public ResponseEntity<List<Book>> findByAuthor(@RequestParam(value = "text", defaultValue = "") String text){
+    public ResponseEntity<Page<Book>> findByAuthor(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+
         text = URL.decodeParam(text);
-        List<Book> list = service.findByAuthor(text);
+        Page<Book> list = service.findByAuthor(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }
 
+
     @GetMapping(value = "/search")
-    public ResponseEntity<List<Book>> find(@RequestParam(value = "text", defaultValue = "") String text){
+    public ResponseEntity<Page<Book>> find(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue= "0") int page,
+            @RequestParam(defaultValue= "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+
         text = URL.decodeParam(text);
-        List<Book> list = service.find(text);
+        Page<Book> list= service.find(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }

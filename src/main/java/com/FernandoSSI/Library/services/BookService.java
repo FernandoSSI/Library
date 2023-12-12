@@ -5,6 +5,8 @@ import com.FernandoSSI.Library.repositories.BookRepository;
 import com.FernandoSSI.Library.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,16 +28,16 @@ public class BookService {
         return book.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
-    public List<Book> findByTitle(String text){
-        return repo.findByTitle(text);
+    public Page<Book> findByTitle(String text, Pageable pageable){
+        return repo.findByTitle(text, pageable);
     }
 
-    public List<Book> findByAuthor(String text){
-        return repo.findByAuthor(text);
+    public Page<Book> findByAuthor(String text, Pageable pageable){
+        return repo.findByAuthor(text, pageable);
     }
 
-    public List<Book> find(String text){
-        return repo.find(text);
+    public Page<Book> find(String text, Pageable pageable){
+        return repo.find(text, pageable);
     }
 
     public Book insert(Book book){
