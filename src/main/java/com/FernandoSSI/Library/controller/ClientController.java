@@ -5,6 +5,9 @@ import com.FernandoSSI.Library.domain.Book;
 import com.FernandoSSI.Library.domain.Client;
 import com.FernandoSSI.Library.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,18 +28,40 @@ public class ClientController {
         return service.findAll();
     }
 
-    @GetMapping(value = "/namesearch")
-    public ResponseEntity<List<Client>> findByName(@RequestParam(value = "text", defaultValue = "") String text){
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<Client>> find(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
         text = URL.decodeParam(text);
-        List<Client> list = service.findByName(text);
+
+        Page<Client> list = service.find(text, pageable);
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/namesearch")
+    public ResponseEntity<Page<Client>> findByName(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        text = URL.decodeParam(text);
+
+        Page<Client> list = service.findByName(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/citysearch")
-    public ResponseEntity<List<Client>> findByCity(@RequestParam(value = "text", defaultValue = "") String text){
+    public ResponseEntity<Page<Client>> findByCity(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
         text = URL.decodeParam(text);
-        List<Client> list = service.findByCity(text);
+        Page<Client> list = service.findByCity(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }
