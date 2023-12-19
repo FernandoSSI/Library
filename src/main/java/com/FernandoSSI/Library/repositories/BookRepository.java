@@ -16,7 +16,7 @@ public interface BookRepository extends MongoRepository<Book, String> {
     @Query("{ 'title': { $regex: ?0, $options: 'i'} }")
     Page<Book> findByTitle(String text, Pageable pageable);
 
-    @Query("{ 'title': { $regex: ?0, $options: 'i'} }")
+    @Query("{ 'author': { $regex: ?0, $options: 'i'} }")
     Page<Book> findByAuthor(String text, Pageable pageable);
 
     @Query("{$or:[{ 'author': { $regex: ?0, $options: 'i'} }, { 'title': { $regex: ?0, $options: 'i'} } ]}")

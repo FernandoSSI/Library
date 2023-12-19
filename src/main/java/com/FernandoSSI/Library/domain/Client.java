@@ -1,11 +1,14 @@
 package com.FernandoSSI.Library.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Document( collection = "client")
@@ -20,13 +23,16 @@ public class Client implements Serializable {
     private String nbh;
     private Integer hn;
 
+    @DBRef(lazy = true)
+    private List<Order> orders = new ArrayList<>();
+
 
 
     public Client(){
 
     }
 
-    public Client(String id, String name, Long number, String city, String street, Integer hn, String nbh) {
+    public Client(String id, String name, Long number, String city, String street, Integer hn, String nbh, List<Order> orders) {
         this.id = id;
         this.name = name;
         this.number = number;
@@ -34,6 +40,7 @@ public class Client implements Serializable {
         this.street = street;
         this.hn = hn;
         this.nbh = nbh;
+        this.orders = orders;
     }
 
     public String getId() {
@@ -90,6 +97,14 @@ public class Client implements Serializable {
 
     public void setNbh(String nbh) {
         this.nbh = nbh;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
