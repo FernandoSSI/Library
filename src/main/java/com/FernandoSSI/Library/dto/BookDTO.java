@@ -10,6 +10,7 @@ public class BookDTO implements Serializable {
     private String id;
     private String title;
     private String author;
+    private String condition;
     private Double price;
     private Integer quantity;
 
@@ -23,6 +24,7 @@ public class BookDTO implements Serializable {
         this.title = book.getTitle();
         this.author = book.getAuthor();
         this.price = book.getPrice();
+        this.condition = book.getCondition();
         if(quantity < book.getQuantity()) {
             this.quantity = quantity;
         } else {
@@ -68,6 +70,14 @@ public class BookDTO implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public Double getTotalPrice(){

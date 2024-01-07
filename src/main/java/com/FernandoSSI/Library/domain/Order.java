@@ -22,9 +22,7 @@ public class Order implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
     private ClientDTO client;
-
-    @DBRef(lazy = true)
-    private List<BookDTO> books = new ArrayList<>();
+    private List<BookDTO> books;
     private Double totalPrice;
 
     public Order(){
@@ -65,6 +63,10 @@ public class Order implements Serializable {
 
     public List<BookDTO> getBooks() {
         return books;
+    }
+
+    public void setBooks(List<BookDTO> books) {
+        this.books = books;
     }
 
     public Double getTotalPrice() {

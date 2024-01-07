@@ -28,6 +28,11 @@ public class ClientController {
         return service.findAll();
     }
 
+    @GetMapping(value = "/{id}")
+    public Client findById(@PathVariable String id){
+        return service.findById(id);
+    }
+
     @GetMapping(value = "/search")
     public ResponseEntity<Page<Client>> find(
             @RequestParam(required = false) String text,
