@@ -43,7 +43,7 @@ public class ClientService {
     }
 
     public void delete(String id){
-        if(!(repo.findById(id) == null)){
+        if(repo.findById(id) != null){
             repo.deleteById(id);
         }
     }
