@@ -1,5 +1,6 @@
 package com.FernandoSSI.Library.domain;
 
+import com.FernandoSSI.Library.domain.enums.OrderStatus;
 import com.FernandoSSI.Library.dto.BookDTO;
 import com.FernandoSSI.Library.dto.ClientDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,17 +25,19 @@ public class Order implements Serializable {
     private ClientDTO client;
     private List<BookDTO> books;
     private Double totalPrice;
+    private OrderStatus orderStatus;
 
     public Order(){
 
     }
 
-    public Order(String id, LocalDate date, ClientDTO client, List<BookDTO> books, Double totalPrice) {
+    public Order(String id, LocalDate date, ClientDTO client, List<BookDTO> books, Double totalPrice, OrderStatus orderStatus) {
         this.id = id;
         this.date = date;
         this.client = client;
         this.books = books;
         this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
     }
 
     public String getId() {
@@ -75,6 +78,14 @@ public class Order implements Serializable {
 
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     @Override
