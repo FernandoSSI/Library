@@ -39,6 +39,19 @@ public class OrderController {
         return ResponseEntity.created(uri).build();
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Order> update(@RequestBody Order order, @PathVariable String id){
+        order.setId(id);
+        service.update(order);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 
