@@ -1,14 +1,14 @@
 package com.FernandoSSI.Library.services;
 
 import com.FernandoSSI.Library.domain.Book;
-import com.FernandoSSI.Library.domain.Client;
 import com.FernandoSSI.Library.domain.Order;
 import com.FernandoSSI.Library.dto.BookDTO;
 import com.FernandoSSI.Library.repositories.BookRepository;
 import com.FernandoSSI.Library.repositories.OrderRepository;
 import com.FernandoSSI.Library.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,9 +31,19 @@ public class OrderService {
         return order.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
-    public List<Order> findByClientName(String text){
-        return repo.findByClientName(text);
+    public Page<Order> findByClientName(String text, Pageable pageable){
+        return repo.findByClientName(text, pageable);
     }
+
+    public Page<Order> findByDate(String text, Pageable pageable){
+        return repo.findByDate(text, pageable);
+    }
+
+    public Page<Order> find (String text, Pageable pageable){
+        return repo.find(text, pageable);
+    }
+
+
 
     public Order insert(Order order){
         Double totalValue = 0.0;

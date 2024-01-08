@@ -1,9 +1,13 @@
 package com.FernandoSSI.Library.controller;
 
 import com.FernandoSSI.Library.controller.util.URL;
+import com.FernandoSSI.Library.domain.Client;
 import com.FernandoSSI.Library.domain.Order;
 import com.FernandoSSI.Library.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,9 +29,40 @@ public class OrderController {
     }
 
     @GetMapping(value = "/searchclientname")
-    public ResponseEntity<List<Order>> findByClientName(@RequestParam String text){
+    public ResponseEntity<Page<Order>> findByClientName(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
         text = URL.decodeParam(text);
-        List<Order> list = service.findByClientName(text);
+
+        Page<Order> list = service.findByClientName(text, pageable);
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/searchdate")
+    public ResponseEntity<Page<Order>> findByDate(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        text = URL.decodeParam(text);
+
+        Page<Order> list = service.findByDate(text, pageable);
+
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<Page<Order>> find(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        text = URL.decodeParam(text);
+
+        Page<Order> list = service.find(text, pageable);
 
         return ResponseEntity.ok().body(list);
     }
