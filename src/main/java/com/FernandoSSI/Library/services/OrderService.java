@@ -35,6 +35,10 @@ public class OrderService {
         return repo.findByClientName(text, pageable);
     }
 
+    public Page<Order> findByTitle(String text, Pageable pageable){
+        return repo.findByTitle(text, pageable);
+    }
+
     public Page<Order> findByDate(String text, Pageable pageable){
         return repo.findByDate(text, pageable);
     }

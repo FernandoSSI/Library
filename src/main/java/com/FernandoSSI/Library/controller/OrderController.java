@@ -41,6 +41,19 @@ public class OrderController {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping(value = "/searchtitle")
+    public ResponseEntity<Page<Order>> findByTitle(
+            @RequestParam(required = false) String text,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        text = URL.decodeParam(text);
+
+        Page<Order> list = service.findByTitle(text, pageable);
+
+        return ResponseEntity.ok().body(list);
+    }
+
     @GetMapping(value = "/searchdate")
     public ResponseEntity<Page<Order>> findByDate(
             @RequestParam(required = false) String text,
