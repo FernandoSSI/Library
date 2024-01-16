@@ -74,25 +74,25 @@ public class OrderService {
         Order newOrder = findById(order.getId());
         newOrder.setDate(order.getDate());
         newOrder.setClient(order.getClient());
+
         for(BookDTO i : order.getBooks()){
+            boolean found = false;
+            for (BookDTO existingBook : newOrder.getBooks()) {
+                if (existingBook.getId().equals(i.getId())) {
+                    existingBook.setQuantity(i.getQuantity());
+                    found = true;
+                    break;
+                }
+            }
             Book book = bookRepo.findExactBook(i.getTitle(), i.getAuthor(), i.getCondition());
-            if (book != null){
-                book.setQuantity(book.getQuantity() + i.getQuantity());
+            if (!found) {
+                book.setQuantity(book.getQuantity() - i.getQuantity());
                 bookRepo.save(book);
             }
         }
         newOrder.setBooks(order.getBooks());
         newOrder.setOrderStatus(order.getOrderStatus());
-        Double totalValue = 0.0;
-        for(BookDTO i : order.getBooks()){
-            totalValue += i.getTotalPrice();
-            Book book = bookRepo.findExactBook(i.getTitle(), i.getAuthor(), i.getCondition());
-            if (book != null){
-                book.setQuantity(book.getQuantity()- i.getQuantity());
-                bookRepo.save(book);
-            }
-        }
-        order.setTotalPrice(totalValue);
+        newOrder.setTotalPrice(order.getTotalPrice());
         return repo.save(newOrder);
     }
 }
