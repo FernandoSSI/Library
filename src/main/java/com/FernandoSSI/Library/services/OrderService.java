@@ -77,8 +77,10 @@ public class OrderService {
 
         for(BookDTO i : order.getBooks()){
             boolean found = false;
+            int difference = 0;
             for (BookDTO existingBook : newOrder.getBooks()) {
                 if (existingBook.getId().equals(i.getId())) {
+                    difference = i.getQuantity()-existingBook.getQuantity();
                     existingBook.setQuantity(i.getQuantity());
                     found = true;
                     break;
@@ -88,6 +90,14 @@ public class OrderService {
             if (!found) {
                 book.setQuantity(book.getQuantity() - i.getQuantity());
                 bookRepo.save(book);
+            } else {
+                if(difference < 0){
+                    book.setQuantity(book.getQuantity() + (-difference));
+                    bookRepo.save(book);
+                } else if ( difference > 0){
+                    book.setQuantity(book.getQuantity() - difference);
+                    bookRepo.save(book);
+                }
             }
         }
         newOrder.setBooks(order.getBooks());
